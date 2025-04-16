@@ -1,48 +1,38 @@
 # GitOnTheCluster
-A tutorial for the McGaugh Lab on how to connect Git on the cluster for script documentation and version control.
+
+A tutorial for the McGaugh Lab on how to connect Git on the MSI cluster for script documentation and version control.
 
 ---
 
-# Git + SSH Setup on MSI Cluster (ahl01)
+## Git + SSH Setup on MSI Cluster (ahl01)
 
 This guide walks you through configuring Git with SSH on the MSI cluster so you can securely clone, pull, and push to GitHub without typing a password or token each time.
 
 ---
 
-## ⚙️ 1. Load Git and Set Up Identity
+### ⚙️ 1. Load Git and Set Up Identity
 
 ```bash
 module load git
-
 git config --global user.name "Your Name"
 git config --global user.email "your.email@umn.edu"
 ```
 
 ---
 
-## 🔐 2. Generate a New SSH Key
-
-Navigate to your Git repo directory or somewhere safe:
+### 🔐 2. Generate a New SSH Key
 
 ```bash
 cd /panfs/jay/groups/26/mcgaughs/YOUR_USERNAME/GitRepos
-```
-
-Generate a key:
-
-```bash
 ssh-keygen -t ed25519 -C "your.email@umn.edu"
 ```
-
 When prompted:
 - File: type `gitkeys.txt`
 - Passphrase: leave empty (just press Enter twice)
 
 ---
 
-## 💻 3. Add Your Key to the SSH Agent
-
-Start the SSH agent and add your key:
+### 💻 3. Add Your Key to the SSH Agent
 
 ```bash
 eval "$(ssh-agent -s)"
@@ -52,14 +42,11 @@ ssh-add gitkeys.txt
 
 ---
 
-## 🔎 4. Add Public Key to GitHub
-
-Print the public key:
+### 🔎 4. Add Public Key to GitHub
 
 ```bash
 cat gitkeys.txt.pub
 ```
-
 Then:
 1. Go to [GitHub SSH Keys](https://github.com/settings/keys)
 2. Click **"New SSH Key"**
@@ -68,89 +55,88 @@ Then:
 
 ---
 
-## 🧰 5. Test Your Connection
+### 🧰 5. Test Your Connection
 
 ```bash
 ssh -T git@github.com
 ```
 
-You should see:
+Expected output:
 ```
 Hi your-username! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
 ---
 
-## 📂 6. Convert a Folder into a Git Repo Linked to GitHub
+### 📂 6. Convert a Folder into a Git Repo Linked to GitHub
+
+#### 🆕 Creating a brand new Git repo from a folder
 
 ```bash
-cd /panfs/jay/groups/26/mcgaughs/YOUR_USERNAME/GitRepos/YourFolder
-
-# Initialize Git
+cd /panfs/jay/groups/26/mcgaughs/YOUR_USERNAME/GitRepos/NewProjectFolder
 git init
-
-# Add files and commit
-git add *.sh *.py *.R README.md
+git add *.sh *.py *.R *.txt README.md
 git commit -m "Initial commit"
+```
 
-# Set SSH remote
-git remote add origin git@github.com:your-username/YourFolder.git
+🚨 **Gotcha**: You must create the GitHub repo **before pushing**!
+- Go to [https://github.com/new](https://github.com/new)
+- Name it the same as your folder
+- Make it **private**
+- ❌ Do **not** initialize with README or license
 
-# Set default branch name (if not already)
+```bash
+git remote add origin git@github.com:your-username/NewProjectFolder.git
 git branch -M main
-```
-
----
-
-## ⚠️ If You Created the GitHub Repo First
-
-If GitHub already has a README or other files, do this **before pushing**:
-
-```bash
-git pull origin main --allow-unrelated-histories
-```
-
-You may be dropped into a `vim` merge message screen — just type `:wq` and press Enter to save and exit.
-
-Then:
-
-```bash
 git push -u origin main
 ```
 
-If Git complains about "no tracking information", run:
+#### ❌ If push fails with "non-fast-forward" error:
 
+```bash
+git pull --rebase
+git push
+```
+
+If Git complains about tracking:
 ```bash
 git branch --set-upstream-to=origin/main main
 ```
 
 ---
 
-## ⚖️ 7. Common Git Workflow
+### 🏗️ Cloning an existing repo
 
 ```bash
-cd your-repo-name
+cd /panfs/jay/groups/26/mcgaughs/YOUR_USERNAME/GitRepos/
+git clone git@github.com:your-username/RepoName.git
+cd RepoName
+```
 
-# Edit files
+---
 
-git add script.sh
-git commit -m "Updated script"
+### ✍️ Working with Git
+
+```bash
+# After editing any files:
+git status
+git add script.py
+git commit -m "Updated logic"
 git push
 ```
 
-To get updates from GitHub:
-
+To pull updates:
 ```bash
 git pull
 ```
 
 ---
 
-## 📅 MSI Help & Snapshots
+### 📅 MSI Help & Snapshots
 
-Need help? Email **elp@msi.umn.edu** or call **(612) 626-0802**
+If you need help, email elp@msi.umn.edu or call (612) 626-0802
 
-Accidentally delete something? Home directories are snapshot protected:
+To recover deleted files:
 
 ```bash
 cd ~/.snapshot
