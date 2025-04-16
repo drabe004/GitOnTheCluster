@@ -1,0 +1,19 @@
+✍️ Editing & Tracking Scripts in Git
+
+If you're editing an existing script in a repo:
+
+cd /path/to/your/repo
+
+# Check status
+git status
+
+# Stage changes
+git add your_script.sh
+
+# Commit
+git commit -m "Describe what you changed"
+
+# Push to GitHub
+git push
+
+Yes, even if you're editing an existing script, you still need to run git add before committing.
