@@ -65,6 +65,76 @@ Permission denied (publickey).
 
 #Cloned the repo using the SSH URL (git@github.com:...) and not HTTPS
 
+## ✅ Recommended Branch Protection Rule for `main`
+
+In your GitHub repo:
+
+1. Go to **Settings** → **Branches**
+2. Click **"Add rule"**
+3. Set **Branch name pattern** to:
+   ```
+   main
+   ```
+
+4. Enable the following settings:
+
+### ✅ Required
+
+- [x] **Protect matching branches** *(automatically enabled)*
+- [x] **Require a pull request before merging**
+- [x] **Require conversation resolution before merging**
+- [x] **Require linear history**
+
+### ⚠️ Optional (use only if needed)
+
+- [ ] **Require status checks to pass before merging**
+  - Enable only if you have automated CI checks (e.g., GitHub Actions).
+- [ ] **Require signed commits**
+  - For high-security workflows — skip unless needed.
+- [ ] **Require deployments to succeed before merging**
+  - Use only for GitHub-integrated deployment workflows.
+
+### 🚫 Recommended to leave disabled
+
+- [ ] **Lock branch**
+- [ ] **Allow force pushes**
+- [ ] **Allow deletions**
+
+---
+
+## 🔐 Access Enforcement
+
+- [x] **Do not allow bypassing the above settings**
+- [x] **Apply rules to everyone, including administrators**
+
+---
+
+## 🧠 How Collaborators Will Work
+
+1. Clone the repository:
+   ```bash
+   git clone git@github.com:your-username/repo-name.git
+   ```
+
+2. Create a feature branch:
+   ```bash
+   git checkout -b my-feature
+   ```
+
+3. Make changes, then stage and commit:
+   ```bash
+   git add file.py
+   git commit -m "Added new feature"
+   ```
+
+4. Push the feature branch:
+   ```bash
+   git push origin my-feature
+   ```
+
+5. Open a **Pull Request** via GitHub and request review
+
+6. Resolve any comments, then merge into `main`
 
 
 
