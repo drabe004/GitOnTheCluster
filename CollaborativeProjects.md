@@ -136,5 +136,49 @@ In your GitHub repo:
 
 6. Resolve any comments, then merge into `main`
 
+########################################################################
+#########################################################################
+Option 1: On GitHub (recommended for most reviewing)
+Go to the GitHub repo in your browser.
+
+Click the "Pull requests" tab.
+
+If they opened a Pull Request (PR), you'll see it listed.
+
+Click it to view the commits, files changed, and leave comments.
+
+Or click the "Branches" tab (under "Code" → drop-down menu) to see all branches.
+
+You can click their branch name and browse code directly on GitHub.
+
+You can even compare it to main (e.g., via the green “Compare & pull request” button).
+
+🔍 Option 2: On the Cluster or Local Machine (Command Line)
+
+# Make sure you're up to date with all remote branches
+git fetch --all
+
+# List remote branches
+git branch -r
+
+# Checkout their branch to inspect it
+git checkout -b their-branch-name origin/their-branch-name
+
+# See what’s different from main
+git diff main..their-branch-name
+Or, view the commit log:
+
+
+git log --oneline --graph --decorate
+
+
+🧠 Tip
+If they haven’t opened a PR yet, you can still see and compare their branch:
+
+In GitHub:
+https://github.com/your-username/repo-name/compare
+
+Then use the drop-downs to choose: base: main ← compare: their-branch-name
+
 
 
