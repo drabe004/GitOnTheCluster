@@ -132,6 +132,17 @@ git pull
 
 ---
 
+mkdir -p ~/.ssh
+cp drabe004/GitRepos/gitkeys.txt ~/.ssh/id_ed25519
+cp drabe004/GitRepos/gitkeys.txt.pub ~/.ssh/id_ed25519.pub
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+
+Then in the future:
+
+ssh-add ~/.ssh/id_ed25519
+
+
 ### 📅 MSI Help & Snapshots
 
 If you need help, email elp@msi.umn.edu or call (612) 626-0802
