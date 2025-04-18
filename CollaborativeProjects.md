@@ -172,6 +172,13 @@ Or, view the commit log:
 git log --oneline --graph --decorate
 
 
+-----FORKS
+
+git clone git@github.com:TheirUsername/ForkedRepoName.git
+cd ForkedRepoName
+
+
+
 🧠 Tip
 If they haven’t opened a PR yet, you can still see and compare their branch:
 
